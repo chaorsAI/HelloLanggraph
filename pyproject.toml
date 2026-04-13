@@ -259,6 +259,11 @@ required-environments = [
 ]
 # 允许跨多个镜像源查找包
 index-strategy = "unsafe-best-match"
+# 新增：延长下载超时时间（解决网络报错）
+http-timeout = 120  # 秒
+# 新增：失败自动重试
+retry = true
+retry-max-attempts = 5
 
 # PyTorch 官方专用源
 [[tool.uv.index]]

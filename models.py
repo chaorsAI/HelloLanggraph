@@ -14,11 +14,16 @@ DEEPSEEK_URL = "https://api.deepseek.com/v1"
 DEEPSEEK_CHAT_MODEL = "deepseek-chat"
 DEEPSEEK_REASONER_MODEL = "deepseek-reasoner"
 
+
+from dotenv import load_dotenv
 import os
-from langchain_openai import ChatOpenAI
-from openai import OpenAI
 import inspect
 
+from langchain_openai import ChatOpenAI
+from openai import OpenAI
+
+
+load_dotenv()
 
 def get_lc_o_ali_model_client(model=ALI_TONGYI_PLUS_MODEL, temperature = 0.7, verbose=False, debug=False):
     '''

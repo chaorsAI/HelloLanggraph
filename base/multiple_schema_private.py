@@ -1,6 +1,7 @@
 # Multiple Schemas：实现“特定节点（a、b）间传递私有字段（如ab_private），其他节点（c）无法访问”
 
 from typing_extensions import TypedDict
+
 from langgraph.graph import StateGraph, START, END
 
 
@@ -15,6 +16,8 @@ class MainState(TypedDict):
 class InputSchema(TypedDict):
     input_num: int
 
+class InputSchema(TypedDict):
+    input_num: int
 # 3. 定义Output Schema（仅暴露final_result）
 class OutputSchema(TypedDict):
     final_result: int
@@ -37,7 +40,6 @@ def node_c(state: MainState) -> MainState:
     c节点：仅处理公开字段，不碰ab_private
     """
     return {"c_val": state["input_num"] + 5}  # 用input_num计算，例：5+5=10
-    return {"c_val": state["ab_private"] + 5}  # 报错，访问不到
 
 # 5. 构建图（绑定主State+IO Schema）
 builder = StateGraph(
@@ -59,9 +61,4 @@ result = graph.invoke({"input_num": 5})  # 输入符合Input Schema
 
 
 # 输出结果：
-print("全量状态（含私有字段）:", result["state"])
-# 输出：{'input_num':5, 'ab_private':10, 'final_result':20, 'c_val':10}
-print("外部输出（仅final_result）:", result["output"])
-# 输出：{'final_result': 20}（ab_private未暴露）
-print("c节点结果（未用ab_private）:", result["state"]["c_val"])
-# 输出：10（c仅处理input_num，没碰ab_private）
+print(result)

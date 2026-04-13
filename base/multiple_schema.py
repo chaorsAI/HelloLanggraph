@@ -46,5 +46,4 @@ builder.add_edge("b", END)
 graph = builder.compile()
 result = graph.invoke({"input_num": 5})  # 输入符合Input Schema
 
-print("全量状态:", result["state"])       # 内部状态：含internal_mid=10
-print("输出结果:", result["output"])      # 输出：{"final_result": 20}（符合Output Schema）
+print(result)
