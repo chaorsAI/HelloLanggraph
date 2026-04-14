@@ -250,6 +250,7 @@ dependencies = [
     "torch",
     "loguru>=0.7.3",
     "langchain-tavily>=0.2.17",
+    "dashscope>=1.25.16",
 ]
 
 # ===================== UV 核心配置（修复 Intel Mac + 镜像兼容问题/目前主要是 torch）=====================

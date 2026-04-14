@@ -14,14 +14,17 @@ DEEPSEEK_URL = "https://api.deepseek.com/v1"
 DEEPSEEK_CHAT_MODEL = "deepseek-chat"
 DEEPSEEK_REASONER_MODEL = "deepseek-reasoner"
 
+ALI_TONGYI_EMBEDDING_V1 = "text-embedding-v1"
+ALI_TONGYI_EMBEDDING_VL3 = "qwen3-vl-embedding"
+ALI_TONGYI_EMBEDDING_ASYNC_V1 = "text-embedding-async-v1"
 
 from dotenv import load_dotenv
 import os
 import inspect
 
 from langchain_openai import ChatOpenAI
+from langchain_community.embeddings import DashScopeEmbeddings
 from openai import OpenAI
-
 
 load_dotenv()
 
@@ -60,3 +63,12 @@ def get_lc_o_ds_model_client(model=DEEPSEEK_CHAT_MODEL, temperature = 0.7, verbo
     '''
     return get_lc_o_model_client(api_key=os.getenv(DEEPSEEK_API_KEY_OS_VAR_NAME), base_url=DEEPSEEK_URL
                                  , model=model, temperature =temperature, verbose=verbose, debug=debug)
+
+
+# ---------- 嵌入模型客户端函数 ----------
+def get_ali_embeddings():
+    """通过LangChain获得一个阿里通义千问嵌入模型的实例，默认使用text-embedding-v2。"""
+    return DashScopeEmbeddings(
+        model=ALI_TONGYI_EMBEDDING_V1,
+        dashscope_api_key=os.getenv(ALI_TONGYI_API_KEY_OS_VAR_NAME)
+    )
